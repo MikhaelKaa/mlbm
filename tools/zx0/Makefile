@@ -1,6 +1,6 @@
 # We only allow compilation on linux!
 ifneq ($(shell uname), Linux)
-$(error OS must be Linux!)
+$(error OS must be WSL or Linux!)
 endif
 
 CC = gcc
