@@ -41,7 +41,7 @@ if [ "$EUID" -ne 0 ]; then
     #exit
 else
     apt-get -y update
-    
+
     # Настройка локали
     #locale-gen "en_US.UTF-8"
 fi
@@ -112,16 +112,13 @@ export HEADER
 export MAKEFLAGS=--no-print-directory
 
 init:
-    chmod +x ./scripts/setup.sh
-	(exec ./scripts/setup.sh)
+	(exec -R ./scripts/setup.sh)
 
 build:
-    chmod +x ./scripts/build.sh
-	(exec ./scripts/build.sh)
+	(exec -R ./scripts/build.sh)
 
 clean:
-    chmod +x ./scripts/clean.sh
-	(exec ./scripts/clean.sh)
+	(exec -R ./scripts/clean.sh)
     
 help:banner
 	@LC_ALL=C make -pRrq -f \$(lastword \$(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/(^|\n)# Files(\n|\$\$)/,/(^|\n)# Finished Make data base/ {if (\$\$1 !~ "^[#.]") {print "make ",\$\$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^\$@\$\$'
