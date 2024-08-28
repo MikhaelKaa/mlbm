@@ -222,7 +222,7 @@ end:
     ; Выводим размер банарника.
     display "covox code size: ", /d, end - begin
     SAVEBIN "build/covox.bin", begin, end - begin
-    SAVESNA "build/covox.sna", begin
+    ;SAVESNA "build/covox.sna", begin
 
 
 
