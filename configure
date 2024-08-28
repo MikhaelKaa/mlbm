@@ -112,15 +112,10 @@ export HEADER
 export MAKEFLAGS=--no-print-directory
 
 init:
-    chmod +x ./scripts/setup.sh
 	(exec ./scripts/setup.sh)
-
 build:
-    chmod +x ./scripts/build.sh
 	(exec ./scripts/build.sh)
-
 clean:
-    chmod +x ./scripts/clean.sh
 	(exec ./scripts/clean.sh)
     
 help:banner
