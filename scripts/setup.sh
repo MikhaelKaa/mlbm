@@ -12,7 +12,7 @@ else
    git clone --recursive -j8 https://github.com/z00m128/sjasmplus.git
    cd sjasmplus
    make
-   make install
+   sudo make install
    cd ..
 fi
 
