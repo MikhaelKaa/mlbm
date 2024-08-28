@@ -113,8 +113,10 @@ export MAKEFLAGS=--no-print-directory
 
 init:
 	(exec ./scripts/setup.sh)
+
 build:
 	(exec ./scripts/build.sh)
+    
 clean:
 	(exec ./scripts/clean.sh)
     
