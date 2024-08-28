@@ -65,6 +65,10 @@ echo  "-----------------------------------------------------------------------"
 echo " BLOCK-2: Wrapper generation"
 echo "-----------------------------------------------------------------------"
 
+chmod +x scripts/setup.sh
+chmod +x scripts/build.sh
+chmod +x scripts/clean.sh
+
 cat << EOT > ./Makefile
 
 # auto-generated: $(date)
@@ -116,7 +120,7 @@ init:
 
 build:
 	(exec ./scripts/build.sh)
-    
+
 clean:
 	(exec ./scripts/clean.sh)
     
