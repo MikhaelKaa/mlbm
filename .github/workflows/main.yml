@@ -20,7 +20,7 @@ jobs:
         submodules: 'recursive'
 
     - name: Configure
-      run: chmod +x configure; sudo ./configure
+      run: chmod +x configure; sudo ./configure; make init
 
     - name: Build
       run: make build
