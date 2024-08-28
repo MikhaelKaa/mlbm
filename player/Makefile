@@ -33,5 +33,5 @@ all:
 	
 
 clean:
-	# Remoe everything except source files
+	# Remove everything except source files
 	rm -f -r build

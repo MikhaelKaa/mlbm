@@ -12,5 +12,5 @@ build_:
 	gcc src/convert.c -o build/convert
 	
 clean:
-	# Remoe everything except source files
+	# Remove everything except source files
 	rm -r -f build

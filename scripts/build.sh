@@ -1,5 +1,9 @@
 #! /usr/bin/env bash
 
-### Вызов сборки.
-cd Nucleo-h743zi2/
-make -j2
+### Сборка ресурсов.
+cd ./assets
+make assets; cd ..
+
+### Сборка плеера и trd.
+cd ./player
+make; cd ..

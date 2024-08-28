@@ -6,3 +6,7 @@ endif
 all:
 	mkdir -p build
 	gcc -Wall -std=c99 -o build/mctrd src/main.c
+	
+clean:
+	# Remove everything except source files
+	rm -r -f build

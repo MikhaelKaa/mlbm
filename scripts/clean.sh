@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
-cd Nucleo-h743zi2
-make clean
+cd ./player
+make clean; cd ..;
+cd ./assets
+make clean; cd ..;
+
 

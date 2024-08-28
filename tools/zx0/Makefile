@@ -20,4 +20,5 @@ dzx0:
 	$(CC) $(CFLAGS) -o build/dzx0 src/dzx0.c
 
 clean:
+	# Remove everything except source files
 	rm -r -f build

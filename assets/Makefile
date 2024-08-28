@@ -25,5 +25,5 @@ compress:
 	$(foreach file, $(wildcard ./mlbm/x???), ../tools/zx0/build/zx0 $(file);)
 	
 clean:
-	# Remoe everything except source files
-	rm -f -r mlbm/*
+	# Remove everything except source files
+	rm -f -r mlbm
