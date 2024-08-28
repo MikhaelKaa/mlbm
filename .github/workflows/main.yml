@@ -20,7 +20,7 @@ jobs:
         submodules: 'recursive'
 
     - name: Configure
-      run: sudo ./configure
+      run: sudo .${{github.workspace}}/configure
 
     - name: Build
       run: make build
