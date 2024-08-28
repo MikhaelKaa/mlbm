@@ -5,7 +5,7 @@ endif
 
 MCTRD = tools/mctrd/build/mctrd
 
-all:
+all: 
 	# Create build dir.
 	mkdir -p build
 
