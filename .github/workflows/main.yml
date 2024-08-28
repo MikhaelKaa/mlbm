@@ -20,7 +20,9 @@ jobs:
         submodules: 'recursive'
 
     - name: Configure
-      run: chmod +x .${{github.workspace}}/configure; sudo .${{github.workspace}}/configure
+      run: ls \
+        chmod +x .${{github.workspace}}/configure \
+        sudo .${{github.workspace}}/configure
 
     - name: Build
       run: make build
