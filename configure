@@ -41,12 +41,7 @@ if [ "$EUID" -ne 0 ]; then
     #exit
 else
     apt-get -y update
-    apt-get -y install gcc-arm-none-eabi
-    apt-get -y install git
-    apt-get -y install binutils 
-    apt-get -y install build-essential
     
-
     # Настройка локали
     #locale-gen "en_US.UTF-8"
 fi
