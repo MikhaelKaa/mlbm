@@ -8,76 +8,85 @@ begin:
     ld a, 0b00000000
     out (0xfe), a
 
+    ld a, 0
+    call page
+
     ; Загружает картинку.
-    ld b, 27
-    ld de, (0x5cf4);0x0101
-    ld hl, 0x4000
+    ld b, 12 ; количество секторов
+    ld de, (0x5cf4) ; адрес по которому лежит сектор(?) с которого пойдет загрузка.
+    ld hl, 0xc000 ; адрес загрузки
     ld c, 0x05
     call 0x3d13
     di
 
+    ld a, 0
+    call page
+
+    ld hl, 0xc000
+    ld de, 0x4000
+    call dzx0_standard
+
+
     ;x0000000
     ld a, 0
     call page
-    ;ld de, (0x5cf4);0x020c
     call load
+
     ;x0000001
     ld a, 1
     call page
-    ;ld de, (0x5cf4);0x060c
     call load
+
     ;x0000002
     ld a, 3
     call page
-    ;ld de, (0x5cf4);0x0a0c
     call load
+
     ;x0000003
     ld a, 4
     call page
-    ;ld de, (0x5cf4);0x0e0c
     call load
+
     ;x0000004
     ld a, 6
     call page
-    ;ld de, (0x5cf4);0x120c
     call load
+
     ;x0000005
     ld a, 7
     call page
-    ;ld de, (0x5cf4);0x160c
     call load
-
-
 
     ;x0000006
     ld a, 0
     or 0b1000000
     call page
-    ;ld de, (0x5cf4);0x1a0c
     call load
+
     ;x0000007
     ld a, 1
     or 0b1000000
     call page
-    ;ld de, (0x5cf4);0x1e0c
+
     call load
+
     ;x0000008
     ld a, 3
     or 0b1000000
     call page
-    ;ld de, (0x5cf4);0x220c
     call load
+
     ;x0000009
     ld a, 4
     or 0b1000000
     call page
-    ;ld de, (0x5cf4);0x260c
     call load
+
     ;x0000010
-    ld a, 6
+    ld a, 7
     or 0b1000000
     call page
-    ld de, (0x5cf4);0x2a0c
+    ld de, (0x5cf4)
     ld b, 40
     ld hl, 0xc000
     ld c, 0x05
@@ -155,7 +164,7 @@ covox_loop:
     call fb_loop
 
     ;x0000010
-    ld a, 6
+    ld a, 7
     or 0b1000000
     call page
     ld de, 10091
@@ -218,88 +227,10 @@ load:
     di
     ret
 
+    INCLUDE "dzx0_standard.asm"
+
 end:
     ; Выводим размер банарника.
     display "covox code size: ", /d, end - begin
     SAVEBIN "build/covox.bin", begin, end - begin
     ;SAVESNA "build/covox.sna", begin
-
-
-
-
-; LINEAD          EQU 0x196e
-; TR_DOS          EQU 15619
-; CH_ADD          EQU 23645
-; CHANS           EQU 23631
-; ERR_SP          EQU 23613
-; ERR_DOS         EQU 23823
-
-; REM         EQU 234
-; CAT         EQU 207
-; ERASE       EQU 210
-; LOAD        EQU 239
-; SAVE        EQU 248
-; CODE        EQU 175
-; ENTER       EQU 13
-
-
-
-
-    ; ;store basic regs
-    ; exx
-    ; push hl
-    ; ld (ZX_SP), sp
-    ; ld hl, (ERR_SP)
-    ; ld (ZX_ERR), hl
-    ; ;ld hl, DISKERR
-    ; push hl
-    ; ld (ERR_SP), sp
-    ; ld hl, quit
-    ; ld (AD_RET), hl
-    ; ld hl, (CH_ADD)
-    ; ld (ZX_CH), hl
-
-    ; ld hl, loadscr
-    ; ld bc, loadscr_end-loadscr
-    ; call execute
-; quit:
-;     ld hl, (ZX_CH)
-;     ld (CH_ADD), hl
-;     ;ld bc, (ZX_PR)
-;     ;call CHANAL
-;     ld hl, (ZX_ERR)
-;     ld (ERR_SP), hl
-;     ld sp, (ZX_SP)
-;     ld (iy), -1
-;     pop hl
-;     exx
-;     ret
-
-; execute:
-;     push bc
-;     push hl
-;     ld hl, 9999
-;     call LINEAD
-;     ld bc, 4
-;     add hl, bc
-;     ld (CH_ADD), hl
-;     ex de, hl
-;     pop hl
-;     pop bc
-;     ldir
-;     call TR_DOS
-;     ld a, (ERR_DOS)
-;     ret
-
-; loadscr:
-;     DEFM ':LOAD "mlbmscr0.C" CODE 16384,6912'
-; loadscr_end:
-
-; ZX_SP   DEFS    2
-; ZX_ERR  DEFS    2
-; ZX_CH   DEFS    2
-; AD_RET  DEFS    2
-; ZX_PR   DEFS    2
-; AD_CON  DEFS    2
-    
-; FILEDESC  DEFS    16

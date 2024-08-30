@@ -20,6 +20,9 @@ assets:
 	cd mlbm; mv x008 x0000008.C
 	cd mlbm; mv x009 x0000009.C
 	cd mlbm; mv x010 x0000010.C
+	rm -f mlbmscr0.C.zx0
+	../tools/zx0/build/zx0 mlbmscr0.C
+	mv mlbmscr0.C.zx0 mlbm/mlbmszx0.C
 
 compress:
 	$(foreach file, $(wildcard ./mlbm/x???), ../tools/zx0/build/zx0 $(file);)
