@@ -1,6 +1,7 @@
 /assets/mlbm
-/build
+/player/build
 /tools/custom_converter/build
 /tools/mctrd/build
 /tools/zx0/build
 /Makefile
+/.vscode/settings.json

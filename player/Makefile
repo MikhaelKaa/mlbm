@@ -10,7 +10,7 @@ all:
 	mkdir -p build
 
 	# app
-	sjasmplus ./src/covox.asm --syntax=F
+	sjasmplus ./src/covox.asm --syntax=F --inc=src
 	mv build/covox.bin build/covox000.C
 	# compile done
 
@@ -18,7 +18,7 @@ all:
 	./$(MCTRD) new build/mlbm.trd
 	./$(MCTRD) -b -a 10 add $(ASSETS)/boot.B build/mlbm.trd
 	./$(MCTRD) add build/covox000.C build/mlbm.trd
-	./$(MCTRD) add $(ASSETS)/mlbmscr0.C build/mlbm.trd
+	./$(MCTRD) add $(ASSETS)/mlbm/mlbmszx0.C build/mlbm.trd
 	./$(MCTRD) add $(ASSETS)/mlbm/x0000000.C build/mlbm.trd
 	./$(MCTRD) add $(ASSETS)/mlbm/x0000001.C build/mlbm.trd
 	./$(MCTRD) add $(ASSETS)/mlbm/x0000002.C build/mlbm.trd
