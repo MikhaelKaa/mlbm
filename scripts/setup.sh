@@ -2,7 +2,7 @@
 echo "Проверка установленного ПО для сборки"
 
 # Проверяем установлен ли sjasmplus.
-SJASMPLUS=`which sjasmplus-` 
+SJASMPLUS=`which sjasmplus` 
 if [ -n "$SJASMPLUS" ]      # Проверяем что строка не пуста.
 then
    echo "sjasmplus installed"
