@@ -1,6 +1,7 @@
     device ZXSPECTRUM128
     org 40000
-port_covox_f    EQU 0x00fb
+port_covox_pent_0xfb    EQU 0x00fb
+port_covox_scorp_0xdd   EQU 0x00dd ; для эмулятора Fuse, порт косокса DD в скорпионе.
 
 begin:
     di
@@ -58,33 +59,38 @@ begin:
     call load
 
     ;x0000006
+    ;or 0b1000000
+    ld a, 0x10
+    call page_sc
     ld a, 0
-    or 0b1000000
     call page
     call load
 
     ;x0000007
+    ld a, 0x10
+    call page_sc
     ld a, 1
-    or 0b1000000
     call page
-
     call load
 
     ;x0000008
+    ld a, 0x10
+    call page_sc
     ld a, 3
-    or 0b1000000
     call page
     call load
 
     ;x0000009
+    ld a, 0x10
+    call page_sc
     ld a, 4
-    or 0b1000000
     call page
     call load
 
     ;x0000010
+    ld a, 0x10
+    call page_sc
     ld a, 7
-    or 0b1000000
     call page
     ld de, (0x5cf4)
     ld b, 40
@@ -95,6 +101,9 @@ begin:
 
 
 covox_loop:
+    ld a, 0x00
+    call page_sc
+
     ;x0000000
     ld a, 0
     call page
@@ -135,26 +144,28 @@ covox_loop:
 
 
     ;x0000006
+    ld a, 0x10
+    call page_sc
     ld a, 0
-    or 0b1000000
     call page
     ld de, 0x4000
     ld hl, 0xc000
     call fb_loop
+
     ;x0000007
     ld a, 1
-    or 0b1000000
     call page
     ld de, 0x4000
     ld hl, 0xc000
     call fb_loop
+    
     ;x0000008
     ld a, 3
-    or 0b1000000
     call page
     ld de, 0x4000
     ld hl, 0xc000
     call fb_loop
+    
     ;x0000009
     ld a, 4
     or 0b1000000
@@ -165,7 +176,6 @@ covox_loop:
 
     ;x0000010
     ld a, 7
-    or 0b1000000
     call page
     ld de, 10091
     ld hl, 0xc000
@@ -189,7 +199,7 @@ fb_loop:
 
     ld a, (hl)
     ;     ld bc, port_gs_dat_f
-    ld bc, port_covox_f
+    ld bc, port_covox_pent_0xfb
     out (c), a
 
     inc hl
@@ -214,7 +224,12 @@ delay:
 page:
     or 16
     ld bc, 0x7ffd
-    ld (23388), a	; если надо либо порт 32765=16 перед выходом в бейсик
+    ;ld (23388), a	; если надо либо порт 32765=16 перед выходом в бейсик
+    out	(c), a
+    ret
+
+page_sc:
+    ld bc, 0x1ffd
     out	(c), a
     ret
 
