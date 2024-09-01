@@ -1,13 +1,24 @@
     device ZXSPECTRUM128
     org 40000
 port_covox_pent_0xfb    EQU 0x00fb
-port_covox_scorp_0xdd   EQU 0x00dd ; для эмулятора Fuse, порт косокса DD в скорпионе.
+port_covox_scorp_0xdd   EQU 0x00dd ; для эмулятора Fuse, порт ковокса DD в скорпионе.
+port_GS_CMD_0xbb        EQU 0x00bb
+port_GS_DAT_0xb3        EQU 0x00b3
+GS_CMD_reset_flags      EQU 0x0e
+GS_CMD_covox_mode       EQU 0x0e
+GS_CMD_cold_restart     EQU 0xf4
+
 
 begin:
     di
     ld sp, 39999
     ld a, 0b00000000
     out (0xfe), a
+
+    ; init GS
+    ld a, GS_CMD_covox_mode
+    ld bc, port_GS_CMD_0xbb
+    out (c), a
 
     ld a, 0
     call page
@@ -191,13 +202,11 @@ fb_loop:
     nop
     nop
     nop
-    nop
-    nop
-    nop
     call delay
 
     ld a, (hl)
-    ;     ld bc, port_gs_dat_f
+    ld bc, port_GS_DAT_0xb3
+    out (c), a
     ld bc, port_covox_pent_0xfb
     out (c), a
 
