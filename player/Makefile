@@ -10,10 +10,9 @@ all:
 	mkdir -p build
 
 	# app
-	sjasmplus ./src/covox.asm --syntax=F --inc=src
+	sjasmplus ./src/covox.asm --syntax=F --inc=src && \
 	mv build/covox.bin build/covox000.C
 	# compile done
-	# TODO: не видно ошибки сборки
 
 	rm -f build/mlbm.trd
 	./$(MCTRD) new build/mlbm.trd
