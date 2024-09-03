@@ -8,6 +8,7 @@ GS_CMD_reset_flags      EQU 0x0e
 GS_CMD_covox_mode       EQU 0x0e
 GS_CMD_cold_restart     EQU 0xf4
 
+    INCLUDE "file_size.asm"
 
 begin:
     di
@@ -24,7 +25,7 @@ begin:
     call page
 
     ; Загружает картинку.
-    ld b, 12 ; количество секторов
+    ld b, SCREEN_SIZE ; количество секторов
     ld de, (0x5cf4) ; адрес по которому лежит сектор(?) с которого пойдет загрузка.
     ld hl, 0xc000 ; адрес загрузки
     ld c, 0x05
@@ -104,7 +105,7 @@ begin:
     ld a, 0x87
     call page
     ld de, (0x5cf4)
-    ld b, 40
+    ld b, LAST_SAMPLE_SIZE
     ld hl, 0xc000
     ld c, 0x05
     call 0x3d13
@@ -242,7 +243,7 @@ page_sc:
     ret
 
 load:
-    ld b, 64
+    ld b, DEFAULT_SIZE
     ld de, (0x5cf4)
     ld hl, 0xc000
     ld c, 0x05
