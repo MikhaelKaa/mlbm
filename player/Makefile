@@ -6,6 +6,21 @@ endif
 MCTRD = ../tools/mctrd/build/mctrd
 ASSETS = ../assets
 all:
+
+	# parsing assets size
+	# Может можно проще? через размер файла высчитывать? Пусть пока будет так...
+	rm -f build/temp.trd
+	rm -f src/file_size_auto.asm
+	echo "DEFAULT_SIZE EQU 64" >> src/file_size_auto.asm
+	echo -n "SCREEN_SIZE EQU " >> src/file_size_auto.asm
+	./$(MCTRD) new build/temp.trd
+	./$(MCTRD) add $(ASSETS)/mlbm/mlbmszx0.C build/temp.trd
+	./$(MCTRD) list build/temp.trd | grep mlbmszx0 | sed 's/\t/;/g' | cut -d ';' -f5 >> src/file_size_auto.asm
+	echo -n "LAST_SAMPLE_SIZE EQU " >> src/file_size_auto.asm
+	./$(MCTRD) add $(ASSETS)/mlbm/x0000010.C build/temp.trd
+	./$(MCTRD) list build/temp.trd | grep x0000010 | sed 's/\t/;/g' | cut -d ';' -f5 >> src/file_size_auto.asm
+	rm -f build/temp.trd
+
 	# Create build dir.
 	mkdir -p build
 

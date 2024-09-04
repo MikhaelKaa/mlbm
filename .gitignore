@@ -6,3 +6,4 @@
 /Makefile
 /.vscode/settings.json
 /player/build/covox000.C
+/player/src/file_size_auto.asm

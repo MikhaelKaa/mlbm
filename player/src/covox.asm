@@ -8,7 +8,7 @@ GS_CMD_reset_flags      EQU 0x0e
 GS_CMD_covox_mode       EQU 0x0e
 GS_CMD_cold_restart     EQU 0xf4
 
-    INCLUDE "file_size.asm"
+    INCLUDE "file_size_auto.asm"
 
 begin:
     di
