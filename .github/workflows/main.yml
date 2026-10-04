@@ -8,23 +8,23 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with:
         submodules: 'recursive'
 
     # sjasmplus нет в apt (Ubuntu/Debian) - кэшируем готовую установку по версии,
     # чтобы не собирать из исходников на каждом прогоне.
     - name: Cache sjasmplus
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: |
           /opt/sjasmplus
           ~/.local/sjasmplus
           ~/.cache/sjasmplus-v1.24.0
-        key: sjasmplus-v1.24.0-ubuntu-latest-${{ runner.arch }}
+        key: sjasmplus-v1.24.0-ubuntu-24.04-${{ runner.arch }}
 
     - name: Install dependencies (ffmpeg)
       run: sudo apt-get update && sudo apt-get install -y ffmpeg
@@ -39,7 +39,7 @@ jobs:
       run: make build
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: mlbm-trd
         path: src/build/mlbm.trd
