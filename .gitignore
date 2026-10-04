@@ -1,5 +1,10 @@
 /assets/mlbm
-/build
+/src/build
 /tools/custom_converter/build
 /tools/mctrd/build
 /tools/zx0/build
+/Makefile
+
+# сгенерированные wav из mp3
+/assets/*.wav
+!assets/sample.wav

@@ -41,12 +41,7 @@ if [ "$EUID" -ne 0 ]; then
     #exit
 else
     apt-get -y update
-    apt-get -y install gcc-arm-none-eabi
-    apt-get -y install git
-    apt-get -y install binutils 
-    apt-get -y install build-essential
     
-
     # Настройка локали
     #locale-gen "en_US.UTF-8"
 fi
@@ -67,8 +62,12 @@ else
 fi
 
 echo  "-----------------------------------------------------------------------"
-echo " BLOCK-2: Wrapper generation for Yocto"
+echo " BLOCK-2: Wrapper generation"
 echo "-----------------------------------------------------------------------"
+
+chmod +x scripts/setup.sh
+chmod +x scripts/build.sh
+chmod +x scripts/clean.sh
 
 cat << EOT > ./Makefile
 
@@ -106,7 +105,7 @@ define HEADER
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣾⣿⣿⣷⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 
-[zx-uvc/wrapper]
+[MLBM demo/wrapper]
 usage:
   make init
   make build

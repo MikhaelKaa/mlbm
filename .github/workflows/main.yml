@@ -1,42 +1,45 @@
-name: C/C++ CI
+name: MLBM CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev ]
   pull_request:
     branches: [ main ]
 
-env:
-  BUILD_TYPE: Debug
-  
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
 
+    # sjasmplus нет в apt (Ubuntu/Debian) - кэшируем готовую установку по версии,
+    # чтобы не собирать из исходников на каждом прогоне.
+    - name: Cache sjasmplus
+      uses: actions/cache@v4
+      with:
+        path: |
+          /opt/sjasmplus
+          ~/.local/sjasmplus
+          ~/.cache/sjasmplus-v1.24.0
+        key: sjasmplus-v1.24.0-ubuntu-latest-${{ runner.arch }}
+
+    - name: Install dependencies (ffmpeg)
+      run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
     - name: Configure
-      run: sudo ./configure
+      run: ./configure
+
+    - name: Init (sjasmplus + tools)
+      run: make init
 
     - name: Build
       run: make build
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: Build
-        path: ${{github.workspace}}/Nucleo-h743zi2/build/nuc-h7-uvc.bin
-
-    #- name: Configure CMake
-      #run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-
-    #- name: Build
-    #  run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-
-    #- name: Test
-    #  working-directory: ${{github.workspace}}/build
-    #  run: ctest -C ${{env.BUILD_TYPE}}
+        name: mlbm-trd
+        path: src/build/mlbm.trd
